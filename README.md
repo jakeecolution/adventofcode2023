@@ -1,7 +1,7 @@
 ## Advent of Code 2023
 Language: Golang
 
-I am mostly proficient in Python, TypeScript, JavaScript, and Golang. I am also familiar with C, C++, Java, and C#. I am working on mastery of Golang.
+I am a master in Python. I am proficient in TypeScript, JavaScript, and Golang. I am also familiar with C, C++, Java, and C#. I am working on mastery of Golang.
 
 I am aiming for a minimum of 1 star per day, but I am hoping to get 2 stars per day.
 
