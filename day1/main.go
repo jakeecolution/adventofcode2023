@@ -189,6 +189,4 @@ func main() {
 	} else {
 		exercise2(mychan, fs, lc)
 	}
-	// exercise1(mychan, fs, lc)
-	// exercise2(mychan, fs, lc)
 }
