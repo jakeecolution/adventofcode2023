@@ -69,24 +69,24 @@ func matchme(match string) (string, string) {
 
 func calibrate_v2(input string) int {
 	var re = regexp.MustCompile(`(?m)\d|one|two|three|four|five|six|seven|eight|nine`)
+	var re2 = regexp.MustCompile(`(?m)\d|eno|owt|eerht|ruof|evif|xis|neves|thgie|enin`)
 	var sum int
 	var stotal string
 
 	matches := re.FindAllStringSubmatchIndex(input, -1)
 	if len(matches) > 0 {
-		temp, replacement := matchme(input[matches[0][0]:matches[0][1]])
-		input = input[:matches[0][0]] + replacement + input[matches[0][1]:]
+		temp, _ := matchme(input[matches[0][0]:matches[0][1]])
 		stotal += temp
 
 	} else {
 		return 0
 	}
-	matchesv2 := re.FindAllString(input, -1)
+	matchesv2 := re2.FindAllString(reverseString(input), -1)
 	count1 := len(matchesv2)
-	if count1 == 0 {
+	if count1 <= 1 {
 		stotal = stotal + stotal
 	} else {
-		temp, _ := matchme(matchesv2[count1-1])
+		temp, _ := matchme(reverseString(matchesv2[0]))
 		stotal += temp
 	}
 
@@ -150,8 +150,18 @@ func exercise2(mychan chan int, fs *bufio.Scanner, lc int) {
 
 }
 
+func reverseString(input string) string {
+	result := []rune(input)
+	for i, j := 0, len(result)-1; i < j; i, j = i+1, j-1 {
+		result[i], result[j] = result[j], result[i]
+	}
+	return string(result)
+}
+
 func main() {
 	var inputfile string
+	var exercise bool
+	flag.BoolVar(&exercise, "exercise", false, "Exercise 1 is True, Exercise 2 is False")
 	// var wg sync.WaitGroup
 	flag.StringVar(&inputfile, "inputfile", "./analyzeme.txt", "A file with line(s) to calibrate given AOC day 1")
 	flag.Parse()
@@ -174,6 +184,11 @@ func main() {
 	}
 	fs = bufio.NewScanner(f)
 	fs.Split(bufio.ScanLines)
-	exercise1(mychan, fs, lc)
+	if exercise {
+		exercise1(mychan, fs, lc)
+	} else {
+		exercise2(mychan, fs, lc)
+	}
+	// exercise1(mychan, fs, lc)
 	// exercise2(mychan, fs, lc)
 }
